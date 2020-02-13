@@ -1,0 +1,79 @@
+PImage Rduck,Lduck,bg,reticle,shot, Bullet;
+int plane, score, duckCount, bulletCount;
+float dX,dY,bulletX;
+int exSize = 70;
+Duck[] duckArray;
+Cartridge[] bulletArray;
+/**-----------------------------------------------------------------------------------------------**/
+public void setup(){
+  
+  bg = loadImage("./images/bg.jpg");                                        //Loading in background image, ducks and reticle from the images folder
+  reticle = loadImage("./images/reticle.png");
+  shot = loadImage("./images/boom.png");
+  size(1000,700);                                                           //size of window is 1000px wide and 700px tall
+  frameRate(60);                                                            //sets to 60 frames per second
+  bulletCount=5;
+  duckArray = new Duck[2];                                                  //set of 3 ducks on screen at one time
+  for(int i=0; i<duckArray.length; i++){                                    //creates the ducks
+    duckArray[i]=new Duck(); 
+  }
+  bulletArray = new Cartridge[bulletCount];                                           //creates 5 sets of bullets
+  bulletX=800;
+  for(int i=0; i<bulletArray.length;i++){
+    bulletArray[i]=new Cartridge();//creates the bullets
+  }
+  
+  
+
+}
+/**-----------------------------------------------------------------------------------------------**/
+void draw(){
+ image(bg,0,0,width,height);
+ if(keyCode==CONTROL){
+   makeBullet();
+ }
+ moveDucks();
+ moveReticle();
+ keepScore();
+}
+/**-----------------------------------------------------------------------------------------------**/
+public void keepScore(){
+  
+  textSize(30);
+  text("Score: " + score, 30, 40);
+  
+}
+/**-----------------------------------------------------------------------------------------------**/
+public void moveReticle(){
+ 
+  image(reticle,mouseX-15,mouseY-15,30,30);
+  
+}
+/**-----------------------------------------------------------------------------------------------**/
+public void moveDucks(){
+ 
+  for(int i=0; i<duckArray.length; i++){
+    duckArray[i].moveDuck();
+    //duckArray[i].duckCollision();
+  }
+}
+/**-----------------------------------------------------------------------------------------------**/
+
+public void keyReleased(){
+  if(key==CODED){
+    if(keyCode == CONTROL){
+      for(int i=0; i<duckArray.length; i++){
+        duckArray[i].duckCollision();
+      }
+      image(shot,mouseX-(exSize/2),mouseY-(exSize/2),exSize,exSize);
+      image(shot,1100,750,20,20);
+    }
+  }
+}
+/**------------------------------------------------------------------------------------------------**/
+public void makeBullet(){
+  for(int i=0; i<bulletArray.length; i++){
+   image(Bullet,bulletX,10,100,100);
+   bulletX-=5;
+ }
+}
