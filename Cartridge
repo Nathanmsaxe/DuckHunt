@@ -1,0 +1,11 @@
+public class Cartridge{
+  float bulletX;
+  
+  public Cartridge(){
+    Bullet=loadImage("./images/Bullet.jpg");
+    bulletX=500;
+    image(Bullet,bulletX,500,100,100);
+    
+  }
+  
+}
