@@ -1,0 +1,49 @@
+public class Duck{
+  
+  float duckX, duckY, gravity;
+  float speed = random(3,10);
+  int direction=int(random(7,8));
+  int size = 100;
+  
+  public Duck(){
+    Lduck = loadImage("./images/LDuck.png");
+    Rduck = loadImage("./images/RDuck.png");
+    duckX=random(100,900);
+    duckY=random(600,699);
+    direction=int(random(1,10));   
+  }
+  void moveDuck(){
+    if(duckX>=1100 || duckX<=-10 && duckY>710 || duckY<=700){
+      if(duckX>=1000 || duckX<=-10 || duckY>700){
+       duckX=random(100,900);
+       duckY=random(600,650);
+       direction=int(random(1,10));
+       speed=random(5,10);
+       gravity=0;
+      }
+      if(direction%2==1){
+        image(Rduck,duckX,duckY,75,75);
+        duckY=((duckY+gravity)-(speed));
+        duckX=duckX+speed;
+      }
+      else if(direction%2==0){
+        image(Lduck,duckX,duckY,75,75);
+        duckY=((duckY+gravity)-(speed));
+        duckX=duckX-speed;
+      }
+      duckY+= gravity;
+      //gravity +=1;
+      if(duckY==540){
+        duckY=400;
+    }
+    }
+  }
+  
+  public void duckCollision(){
+    if(duckX-size<=mouseX && duckX+size>=mouseX && duckY+size>=mouseY && duckY-size<=mouseY){
+    score++;
+    duckY=600;
+    duckX=random(100,900);
+   }
+ }
+ 
